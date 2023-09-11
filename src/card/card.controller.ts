@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Put } from '@nestjs/common';
 import { CardService } from './card.service';
 import { Card } from './entities';
 
@@ -14,5 +14,19 @@ export class CardController {
     @Post('/createCard')
     createCard(@Body() { term, meaning, author }) {
         return this.cardService.createCard(term, meaning, author);
+    }
+
+    @Get('/findCardByTerm') 
+    findCardByTerm(@Body() { term }) {
+        return this.cardService.findCardByTerm(term);
+    }
+
+    @Delete('/deleteCard') 
+    deleteCard(@Body() { id }) {
+        return this.cardService.deleteCard(id);
+    }
+
+    @Put('/updateCard')
+    updateCard(@Body() { id,  }) {
     }
 }

@@ -5,12 +5,12 @@ export class Card extends BaseEntity {
   constructor (
 		term: string, 
     meaning: string,
-    author: string,
+    author?: string,
 	) {
 		super();
 		this.term = term;
     this.meaning = meaning;
-    this.author = author;
+    this.author = author || null;
 	}
 
   @PrimaryGeneratedColumn()
