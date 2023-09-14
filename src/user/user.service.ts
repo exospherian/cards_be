@@ -14,10 +14,14 @@ export class UserService {
         return this.usersRepository.find();
     }
 
-    async createUser (username: string): Promise<User> {
-        const user = new User(username);
+    async createUser (username: string, password: string): Promise<User> {
+        const user = new User(username, password);
         await user.save();
         return user;
-	  };
+	};
+
+    getUserById(userId: number): Promise<User> {
+        return this.usersRepository.findOne({ where: { id: userId } });
+    }
 
 }

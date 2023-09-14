@@ -5,6 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/entities';
 import { UserModule } from './user/user.module';
 import { CardModule } from './card/card.module';
+import { ProfileModule } from './profile/profile.module';
+import { Profile } from './profile/entity';
+import { Card } from './card/entities';
 
 @Module({
   imports: [
@@ -15,12 +18,13 @@ import { CardModule } from './card/card.module';
       username: 'postgres',
       password: '0blivion92',
       database: 'cards',
-      entities: [User],
+      entities: [User, Card, Profile],
       synchronize: true,
       autoLoadEntities: true,
     }),
     UserModule,
     CardModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,7 +4,7 @@ import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 export class User extends BaseEntity {
   constructor (
 		username: string, 
-    password: string;
+    password: string,
 	) {
 		super();
 		this.username = username;
