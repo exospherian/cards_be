@@ -4,9 +4,11 @@ import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 export class User extends BaseEntity {
   constructor (
 		username: string, 
+    password: string;
 	) {
 		super();
 		this.username = username;
+    this.password = password;
 	}
 
   @PrimaryGeneratedColumn()
@@ -14,5 +16,8 @@ export class User extends BaseEntity {
 
   @Column()
   username: string;
+
+  @Column()
+  password: string;
 
 }
