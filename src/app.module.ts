@@ -8,6 +8,7 @@ import { CardModule } from './card/card.module';
 import { ProfileModule } from './profile/profile.module';
 import { Profile } from './profile/entity';
 import { Card } from './card/entities';
+import { CollectionModule } from './collection/collection.module';
 
 @Module({
   imports: [
@@ -23,8 +24,12 @@ import { Card } from './card/entities';
       autoLoadEntities: true,
     }),
     UserModule,
-    CardModule,
-    ProfileModule,
+    CardModule, 
+    ProfileModule, 
+    CollectionModule,
+  ],
+  exports: [
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

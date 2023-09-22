@@ -12,8 +12,8 @@ export class ProfileController {
     }
 
     @Post('/createProfile')
-    createUser(@Body() { email, birthDate }) {
-        return this.profileService.createProfile(email, birthDate);
+    createUser(@Body() { userId, email, birthDate }) {
+        return this.profileService.createProfile(userId, email, birthDate);
     }
 
     // @Get('/getProfileByUserId') 

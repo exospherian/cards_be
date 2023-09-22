@@ -20,12 +20,12 @@ export class CardService {
         return card;
 	  };
 
-    findCardByTerm(term: string): Promise<Card[]> {
-        return this.cardsRepository.find({ where : { term } });
+    async findCardByTerm(term: string): Promise<Card[]> {
+        return await this.cardsRepository.find({ where : { term } });
     }
 
-    findCardById(id: number): Promise<Card> {
-        return this.cardsRepository.findOne({ where : { id } });
+    async findCardById(id: number): Promise<Card> {
+        return await this.cardsRepository.findOne({ where : { id } });
     }
 
     async deleteCard(id: number) {
