@@ -9,16 +9,20 @@ export class UserService {
         private userStorage: UserStorage,
 	  ) {}
 
-    getAllUsers(): Promise<User[]> {
-        return this.userStorage.findAll();
+    async getAllUsers(): Promise<User[]> {
+        return await this.userStorage.findAll();
     }
 
     async createUser (username: string, password: string): Promise<User> {
         return this.userStorage.createUser(username, password);
 	};
 
-    getUserById(userId: number): Promise<User> {
-        return this.userStorage.findOneById(userId);
+    async getUserById(userId: number): Promise<User> {
+        return await this.userStorage.findOneById(userId);
+    }
+
+    async findUserByUsername(username: string): Promise<User> {
+        return await this.userStorage.findUserByUsername(username);
     }
 
 }

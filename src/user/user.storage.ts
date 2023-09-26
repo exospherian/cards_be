@@ -22,6 +22,10 @@ export class UserStorage {
 
     findOneById(userId: number): Promise<User> {
         return this.usersRepository.findOne({ where: { id: userId } });
+    } 
+
+    findUserByUsername(username: string): Promise<User> {
+        return this.usersRepository.findOne({ where: { username }});
     }
 
 }
