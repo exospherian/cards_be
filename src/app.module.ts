@@ -6,9 +6,10 @@ import { User } from './user/entities';
 import { UserModule } from './user/user.module';
 import { CardModule } from './card/card.module';
 import { ProfileModule } from './profile/profile.module';
-import { Profile } from './profile/entity';
+import { Profile } from './profile/entities';
 import { Card } from './card/entities';
 import { CollectionModule } from './collection/collection.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,7 +27,7 @@ import { CollectionModule } from './collection/collection.module';
     UserModule,
     CardModule, 
     ProfileModule, 
-    CollectionModule,
+    CollectionModule, AuthModule,
   ],
   exports: [
     UserModule,
