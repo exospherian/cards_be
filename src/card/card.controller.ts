@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Delete, Put } from '@nestjs/common';
 import { CardService } from './card.service';
 import { Card } from './entities';
+import { CardDto } from './dto';
 
 @Controller('card')
 export class CardController {
@@ -12,13 +13,13 @@ export class CardController {
     }
 
     @Post('/createCard')
-    createCard(@Body() { term, meaning, author }) {
-        return this.cardService.createCard(term, meaning, author);
+    createCard(@Body() cardDto: CardDto) {
+        return this.cardService.createCard(cardDto.term, cardDto.meaning, cardDto.author);
     }
 
-    @Get('/findCardByTerm') 
-    findCardByTerm(@Body() { term }) {
-        return this.cardService.findCardByTerm(term);
+    @Post('/findCardByTerm') 
+    findCardByTerm(@Body() cardDto: CardDto) {      //request expects all parameters of cardDto. Can we expect only required one, term?
+        return this.cardService.findCardByTerm(cardDto.term);
     }
 
     @Delete('/deleteCard') 

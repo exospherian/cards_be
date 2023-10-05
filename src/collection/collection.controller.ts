@@ -1,6 +1,8 @@
-import { Controller, Post, Get, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, Query } from '@nestjs/common';
 import { CollectionService } from './collection.service';
 import { Collection } from './entities';
+import { ApiQuery } from '@nestjs/swagger';
+
 
 @Controller('collection')
 export class CollectionController {
@@ -12,19 +14,24 @@ export class CollectionController {
 
   @Post('/createCollection')
   addCollection(
-    @Body()
-    { name, userId },
-  ) {
-    return this.collectionService.createCollection(name, userId);
+    @Param('id') id: number, 
+    @Query() name: string,
+    ) {
+    return this.collectionService.createCollection(name, id);
   }
 
   @Get('/findCollectionsByUserId')
-  findCollectionsByUserId(@Body() { userId }) {
-      return this.collectionService.findCollectionsByUserId(userId);
+  findCollectionsByUserId(@Param('id') id: number) {
+      return this.collectionService.findCollectionsByUserId(id);
   }
 
+  @ApiQuery({})
   @Post('/addCardsToCollection')
-  addCardsToCollection(@Body() { collectionId, cardIds }) {
-    return this.collectionService.addCardsToCollection(collectionId, cardIds);
+  async addCardsToCollection(
+    @Param('id') id: number, 
+    @Query() cardIds: number[]
+    ): Promise<Collection> {
+      console.log(cardIds, typeof cardIds);
+    return await this.collectionService.addCardsToCollection(id, cardIds);
   }
 }

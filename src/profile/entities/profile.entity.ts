@@ -5,7 +5,7 @@ import { User } from '../../user/entities';
 export class Profile extends BaseEntity {
   constructor (
 		email: string, 
-        birthDate: string,
+    birthDate: string,
 	) {
 		super();
 		this.email = email;

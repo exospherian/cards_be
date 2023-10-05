@@ -14,18 +14,15 @@ export class AuthService {
         const user = await this.userService.findUserByUsername(username);
         
         if(!user) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException("no user");
         }
 
         let hash = await hashPass(password);
 
-        // if (user?.password !== hash) {
-        //     throw new UnauthorizedException();
-        // }
-        let result = await compare(hash, user.password);
+        let result = compare(user.password, hash);
         
         if(!result) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException("comparison failed");
         }
 
         return user;
@@ -36,7 +33,7 @@ export class AuthService {
         let user = await this.userService.findUserByUsername(username);
 
         if(user) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException("user already exists");
         }
         
         let hash = await hashPass(password);

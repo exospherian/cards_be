@@ -55,7 +55,7 @@ export class CollectionService {
             cards.push(card);
         }
         collection.cards = cards;
-        collection.save();
+        await collection.save();
         return collection;
       }
 }

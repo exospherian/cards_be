@@ -1,19 +1,21 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { Profile } from './entities';
+import { ProfileDto } from './dto';
 
-@Controller('profile')
+@Controller('profiles')
 export class ProfileController {
     constructor(private readonly profileService: ProfileService) {}
 
-    @Get('/getAllProfiles')
+    @Get('')
     getAllUsers(): Promise<Profile[]> {
         return this.profileService.getAllProfiles();
     }
 
-    @Post('/createProfile')
-    createUser(@Body() { userId, email, birthDate }) {
-        return this.profileService.createProfile(userId, email, birthDate);
+
+    @Post('/create')
+    createUser(@Param('id') id: number, @Body() profileDto: ProfileDto) {
+        return this.profileService.createProfile(id, profileDto.email, profileDto.birthDate);
     }
 
     // @Get('/getProfileByUserId') 
