@@ -36,7 +36,7 @@ export class CollectionService {
     
       async createCollection(name: string, userId: number): Promise<Collection> {
         const collection = new Collection(name);
-        const user = await this.userService.getUserById(userId);
+        const user = await this.userService.findUserById(userId);
         collection.user = user;
         await collection.save();
         return collection;

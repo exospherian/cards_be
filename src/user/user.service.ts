@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities';
 import { UserStorage } from './user.storage';
 
@@ -17,7 +16,7 @@ export class UserService {
         return this.userStorage.createUser(username, password);
 	};
 
-    async getUserById(userId: number): Promise<User> {
+    async findUserById(userId: number): Promise<User> {
         return await this.userStorage.findOneById(userId);
     }
 

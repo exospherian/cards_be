@@ -17,7 +17,7 @@ export class ProfileService {
     };
 
     async createProfile (userId: number, email: string, birthDate: string): Promise<Profile> {
-        const user = await this.userService.getUserById(userId);
+        const user = await this.userService.findUserById(userId);
         const profile = new Profile(email, birthDate);
         profile.user = user;
         await profile.save();

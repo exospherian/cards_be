@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './entities';
-import { UserDto } from '../user/dto/user.dto';
+import { UserDto, UserViewDto } from '../user/dto';
+import { plainToClass } from 'class-transformer';
 
 @Controller('users')
 export class UserController {
     constructor(private readonly userService: UserService) {}
+
 
     @Get('')
     getAllUsers(): Promise<User[]> {
@@ -13,18 +15,30 @@ export class UserController {
     }
 
     @Post('')
-    createUser(@Body() userDto: UserDto) {
-        return this.userService.createUser(userDto.username, userDto.password);
+    async createUser(@Body() userDto: UserDto): Promise<UserViewDto> {
+        let user = await this.userService.createUser(userDto.username, userDto.password);
+        return plainToClass(UserViewDto, user, {
+            excludeExtraneousValues: true,
+        });
     }
 
-    @Post('/getUserById')
-    getUserById(@Query() username: string) {
-        return this.userService.findUserByUsername(username);
+    @Post(':id')
+    async getUserById(@Param('id') id: number): Promise<UserViewDto> {
+        let user = await this.userService.findUserById(id);
+        return plainToClass(UserViewDto, user, {
+            excludeExtraneousValues: true,
+        });
     }
 
-    @Post('/createUser')
-    getUserByUsername(@Body() userDto: UserDto) {
-        return this.userService.createUser(userDto.username, userDto.password);
+    //doesn't work
+    //ERROR [ExceptionsHandler] invalid input syntax for type integer: "username"
+    //QueryFailedError: invalid input syntax for type integer: "username"
+    @Post('username')
+    async getUserByUsername(@Query('username') username: string): Promise<UserViewDto> {
+        let user = await this.userService.findUserByUsername(username);
+        return plainToClass(UserViewDto, user, {
+            excludeExtraneousValues: true,
+        });
     }
   
 }

@@ -12,10 +12,14 @@ export class ProfileController {
         return this.profileService.getAllProfiles();
     }
 
-
-    @Post('/create')
-    createUser(@Param('id') id: number, @Body() profileDto: ProfileDto) {
-        return this.profileService.createProfile(id, profileDto.email, profileDto.birthDate);
+    //doesn't work. 
+    //ERROR [ExceptionsHandler] duplicate key value violates unique constraint "UQ_a24972ebd73b106250713dcddd9"
+    //QueryFailedError: duplicate key value violates unique constraint "UQ_a24972ebd73b106250713dcddd9"
+    @Post('')
+    async createUser(
+        @Param('id') id: number, 
+        @Body() profileDto: ProfileDto): Promise<ProfileDto> {
+            return await this.profileService.createProfile(id, profileDto.email, profileDto.birthDate);
     }
 
     // @Get('/getProfileByUserId') 
