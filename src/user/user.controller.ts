@@ -1,16 +1,22 @@
-import { Controller, Get, Post, Body, Query, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Param, Inject } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './entities';
 import { UserDto, UserViewDto } from '../user/dto';
 import { plainToClass } from 'class-transformer';
+import { Redis } from 'ioredis';
 
 @Controller('users')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService, 
+                @Inject("REDIS_CLIENT") private readonly  redisClient: Redis,
+                ) {}
 
 
     @Get('')
-    getAllUsers(): Promise<User[]> {
+    async getAllUsers(): Promise<User[]> {
+        const kek = await this.redisClient.get('kek');
+        console.log(kek);
+        await this.redisClient.incr('kek');
         return this.userService.getAllUsers();
     }
 

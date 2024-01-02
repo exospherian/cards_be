@@ -22,3 +22,8 @@ services:
           PGADMIN_DEFAULT_EMAIL: test@test.com
           PGADMIN_DEFAULT_PASSWORD: test
           PGADMIN_LISTEN_PORT: 3000
+
+    redis:
+      image: redis:latest
+      ports:
+        - "6379:6379"
