@@ -24,11 +24,11 @@ export class CardService {
         return await this.cardsRepository.find({ where : { term } });
     }
 
-    async findCardById(id: number): Promise<Card> {
+    async findCardById(id: string): Promise<Card> {
         return await this.cardsRepository.findOne({ where : { id } });
     }
 
-    async deleteCard(id: number) {
+    async deleteCard(id: string) {
         let card = await this.findCardById(id);
         if (card) {
             await this.cardsRepository.delete(id);

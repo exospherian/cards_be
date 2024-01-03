@@ -20,7 +20,7 @@ export class CollectionService {
         return this.collectionRepository.find();
       }
     
-      async findCollectionsByUserId(userId: number): Promise<Collection[]> {
+      async findCollectionsByUserId(userId: string): Promise<Collection[]> {
         let collections = await this.collectionRepository.find({ 
           relations: { 
             user: true, 
@@ -34,7 +34,7 @@ export class CollectionService {
         return collections;
       }
     
-      async createCollection(name: string, userId: number): Promise<Collection> {
+      async createCollection(name: string, userId: string): Promise<Collection> {
         const collection = new Collection(name);
         const user = await this.userService.findUserById(userId);
         collection.user = user;
@@ -42,11 +42,11 @@ export class CollectionService {
         return collection;
       }
 
-      async getCollectionById(id: number): Promise<Collection> {
+      async getCollectionById(id: string): Promise<Collection> {
         return await this.collectionRepository.findOne({ where: { id } });
       }
     
-      async addCardsToCollection(collectionId: number, cardIds: number[]) {
+      async addCardsToCollection(collectionId: string, cardIds: string[]) {
         let collection = await this.getCollectionById(collectionId);
         
         let cards: Card[] = [];

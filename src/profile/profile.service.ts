@@ -16,7 +16,7 @@ export class ProfileService {
         return this.profileRepository.find();
     };
 
-    async createProfile (userId: number, email: string, birthDate: string): Promise<Profile> {
+    async createProfile (userId: string, email: string, birthDate: string): Promise<Profile> {
         const user = await this.userService.findUserById(userId);
         const profile = new Profile(email, birthDate);
         profile.user = user;

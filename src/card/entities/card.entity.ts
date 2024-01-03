@@ -1,4 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
+
 
 @Entity()
 export class Card extends BaseEntity {
@@ -6,15 +8,17 @@ export class Card extends BaseEntity {
 		term: string, 
     meaning: string,
     author?: string,
+    id: string = uuidv4(),
 	) {
 		super();
 		this.term = term;
     this.meaning = meaning;
     this.author = author || null;
+    this.id = id;
 	}
 
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid', { name: 'id' })
+  id: string;
 
   @Column({
     nullable : false,

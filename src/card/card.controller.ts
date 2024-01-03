@@ -23,7 +23,7 @@ export class CardController {
     }
 
     @Delete(':id') 
-    deleteCard(@Param('id') id: number): Promise<string> {
+    deleteCard(@Param('id') id: string): Promise<string> {
         return this.cardService.deleteCard(id);
     }
 
