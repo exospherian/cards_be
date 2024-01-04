@@ -3,20 +3,14 @@ import { UserService } from './user.service';
 import { User } from './entities';
 import { UserDto, UserViewDto } from '../user/dto';
 import { plainToClass } from 'class-transformer';
-import { Redis } from 'ioredis';
+
 
 @Controller('users')
 export class UserController {
-    constructor(private readonly userService: UserService, 
-                @Inject("REDIS_CLIENT") private readonly  redisClient: Redis,
-                ) {}
-
+    constructor(private readonly userService: UserService) {}
 
     @Get('')
     async getAllUsers(): Promise<User[]> {
-        const kek = await this.redisClient.get('kek');
-        console.log(kek);
-        await this.redisClient.incr('kek');
         return this.userService.getAllUsers();
     }
 
@@ -29,7 +23,7 @@ export class UserController {
     }
 
     @Post(':id')
-    async getUserById(@Param('id') id: number): Promise<UserViewDto> {
+    async getUserById(@Param('id') id: string): Promise<UserViewDto> {
         let user = await this.userService.findUserById(id);
         return plainToClass(UserViewDto, user, {
             excludeExtraneousValues: true,

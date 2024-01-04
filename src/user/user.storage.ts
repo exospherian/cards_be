@@ -20,7 +20,7 @@ export class UserStorage {
         return user;
 	};
 
-    findOneById(userId: number): Promise<User> {
+    findOneById(userId: string): Promise<User> {
         return this.usersRepository.findOne({ where: { id: userId } });
     } 
 

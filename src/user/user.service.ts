@@ -16,7 +16,7 @@ export class UserService {
         return this.userStorage.createUser(username, password);
 	};
 
-    async findUserById(userId: number): Promise<User> {
+    async findUserById(userId: string): Promise<User> {
         return await this.userStorage.findOneById(userId);
     }
 

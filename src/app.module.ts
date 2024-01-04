@@ -10,6 +10,8 @@ import { Profile } from './profile/entities';
 import { Card } from './card/entities';
 import { CollectionModule } from './collection/collection.module';
 import { AuthModule } from './auth/auth.module';
+import { Collection } from './collection/entities';
+
 
 @Module({
   imports: [
@@ -20,14 +22,15 @@ import { AuthModule } from './auth/auth.module';
       username: 'postgres',
       password: '0blivion92',
       database: 'cards',
-      entities: [User, Card, Profile],
+      entities: [User, Card, Profile, Collection],
       synchronize: true,
       autoLoadEntities: true,
     }),
     UserModule,
     CardModule, 
     ProfileModule, 
-    CollectionModule, AuthModule,
+    CollectionModule, 
+    AuthModule,
   ],
   exports: [
     UserModule,
