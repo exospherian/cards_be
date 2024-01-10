@@ -14,8 +14,8 @@ export class UserStorage {
         return this.usersRepository.find();
     }
 
-    async createUser (username: string, password: string): Promise<User> {
-        const user = new User(username, password);
+    async createUser (username: string, hash: string): Promise<User> {
+        const user = new User(username, hash);
         await user.save();
         return user;
 	};

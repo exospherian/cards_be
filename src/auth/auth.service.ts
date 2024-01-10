@@ -5,7 +5,7 @@ import { hashPass } from './hash';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AuthRedisStorage } from './auth.redis.storage';
-import { IJwtTokens } from './JWT/intefaces/jwt.tokens.inerface';
+import { IJwtTokens } from './JWT/interfaces/jwt.tokens.inerface';
 
 @Injectable()
 export class AuthService {

@@ -3,9 +3,11 @@ import { UserService } from './user.service';
 import { User } from './entities';
 import { UserDto, UserViewDto } from '../user/dto';
 import { plainToClass } from 'class-transformer';
+import { ApiTags } from '@nestjs/swagger';
 
 
 @Controller('users')
+@ApiTags('users')
 export class UserController {
     constructor(private readonly userService: UserService) {}
 

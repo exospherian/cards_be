@@ -1,9 +1,11 @@
 import { Controller, Post, Get, Body, Param, Query } from '@nestjs/common';
 import { CollectionService } from './collection.service';
 import { Collection } from './entities';
+import { ApiTags } from '@nestjs/swagger';
 
 
-@Controller('collection')
+@Controller('collections')
+@ApiTags('collections')
 export class CollectionController {
 
     constructor(private readonly collectionService: CollectionService) {}

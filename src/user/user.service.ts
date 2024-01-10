@@ -12,8 +12,8 @@ export class UserService {
         return await this.userStorage.findAll();
     }
 
-    async createUser (username: string, password: string): Promise<User> {
-        return this.userStorage.createUser(username, password);
+    async createUser (username: string, hash: string): Promise<User> {
+        return await this.userStorage.createUser(username, hash);
 	};
 
     async findUserById(userId: string): Promise<User> {

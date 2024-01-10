@@ -4,7 +4,6 @@ import { AuthService } from './auth.service';
 import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './JWT/constants';
-import { RedisService } from '../redis/redis.service';
 import { RedisModule } from '../redis/redis.module';
 import { AuthRedisStorage } from './auth.redis.storage';
 
@@ -18,6 +17,6 @@ import { AuthRedisStorage } from './auth.redis.storage';
     RedisModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, RedisService, AuthRedisStorage]
+  providers: [AuthService, AuthRedisStorage]
 })
 export class AuthModule {}

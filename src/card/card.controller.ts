@@ -1,9 +1,13 @@
-import { Controller, Get, Post, Body, Delete, Put, Param, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Put, Param, Query, UseGuards } from '@nestjs/common';
 import { CardService } from './card.service';
 import { Card } from './entities';
 import { CardDto } from './dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-@Controller('card')
+
+@Controller('cards')
+@ApiTags('cards')
 export class CardController {
     constructor(private readonly cardService: CardService) {}
 
@@ -12,6 +16,8 @@ export class CardController {
         return this.cardService.getAllCards();
     }
 
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @Post('')
     createCard(@Body() cardDto: CardDto) {
         return this.cardService.createCard(cardDto.term, cardDto.meaning, cardDto.author);
