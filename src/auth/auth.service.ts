@@ -37,25 +37,45 @@ export class AuthService {
             refreshToken: await this.jwtService.signAsync(payload)
         }
 
-        await this.authRedisStorage.set(user.id, tokens.accessToken);
-
-        //where should I check if token was setup successfully? 
-        //here (throw new Exception or smth like that or in the auth.redis.storage?)
+        await this.authRedisStorage.set(user.id, tokens.refreshToken);
 
         return tokens;
     }
 
-    async refreshToken() {
-
+    async refreshToken(token: string) {
+        let decodedToken = await this.verifyToken(token);
+        await this.verifyAuthSession(decodedToken.sub, token);
+        let payload = { sub: decodedToken.sub, username: decodedToken.username };
+        //update refresh token in redis too, DONT FORGET
+        return await this.jwtService.signAsync(payload);
     }
 
+    async verifyToken(token: string) {
+        try {
+            return this.jwtService.verifyAsync(token);
+        } catch (error) {
+            throw new UnauthorizedException('Invalid token.');
+        }
+    }
+
+    //works only for 1 device. Should be able to work on multiple devices. 
+    async verifyAuthSession(id: string, token: string) {
+        try {
+            let tokenFromRedis = await this.authRedisStorage.get(id);
+            if(tokenFromRedis === token) {
+                return true;
+            }
+        } catch (error) {
+            throw new UnauthorizedException('No such token.')
+        }
+    }
 
     async signUp(username: string, password: string): Promise<User> {
 
         let user = await this.userService.findUserByUsername(username);
 
         if(user) {
-            throw new UnauthorizedException("user already exists");
+            throw new UnauthorizedException("User already exists");
         }
         
         let hash = await hashPass(password);
